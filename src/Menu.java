@@ -1,6 +1,10 @@
 
-import BD.Select;
+import Classes.EspacoCafe;
+import Classes.Pessoa;
+import Classes.SalaEvento;
+import java.util.ArrayList;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -13,11 +17,15 @@ import javax.swing.JFrame;
  */
 public class Menu extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Menu
-     */
-    public Menu() {
+    static ArrayList<EspacoCafe> listaEspacoCafe = new ArrayList<EspacoCafe>();
+    static ArrayList<Pessoa> listaPessoas = new ArrayList<Pessoa>();
+    static ArrayList<SalaEvento> listaSalasEvento = new ArrayList<SalaEvento>();
+
+    public Menu(ArrayList<Pessoa> listaPessoas, ArrayList<SalaEvento> listaSalasEvento, ArrayList<EspacoCafe> listaEspacoCafe) {
         initComponents();
+        this.listaPessoas = listaPessoas;
+        this.listaSalasEvento = listaSalasEvento;
+        this.listaEspacoCafe = listaEspacoCafe;
     }
 
     /**
@@ -123,23 +131,37 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+
+        CadastrarSalaEvento salaEvento = new CadastrarSalaEvento(listaPessoas, listaSalasEvento, listaEspacoCafe);
+
+        salaEvento.setVisible(true);
+        salaEvento.setLocationRelativeTo(null);
+        this.setVisible(false);
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        Select slt = new Select();
-        //slt.BuscaTodosOsCampos();
 
+         MostrarSalaECafe cafeFrame = new MostrarSalaECafe(listaPessoas, listaSalasEvento, listaEspacoCafe, new EspacoCafe());
+        cafeFrame.setVisible(true);
+        cafeFrame.setLocationRelativeTo(null);
+        this.setVisible(false);
 
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+
+        CadastrarEspacoCafe espacoCafeFrame = new CadastrarEspacoCafe(listaPessoas, listaSalasEvento, listaEspacoCafe);
+
+        espacoCafeFrame.setVisible(true);
+        espacoCafeFrame.setLocationRelativeTo(null);
+        this.setVisible(false);
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        CadastrarPessoa frame1 = new CadastrarPessoa();
+        CadastrarPessoa frame1 = new CadastrarPessoa(listaPessoas, listaSalasEvento, listaEspacoCafe);
 
         frame1.setVisible(true);
         frame1.setLocationRelativeTo(null);
@@ -148,10 +170,23 @@ public class Menu extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        MostrarSalaECafe salaFrame = new MostrarSalaECafe(listaPessoas, listaSalasEvento, listaEspacoCafe, new SalaEvento());
+        salaFrame.setVisible(true);
+        salaFrame.setLocationRelativeTo(null);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+
+        if (this.listaPessoas.size() == 0){
+            JOptionPane.showMessageDialog(null, "Você deve cadastrar uma pessoa antes.");
+            return;
+        }
+        ListaPessoas lpFrame = new ListaPessoas(listaPessoas, listaSalasEvento, listaEspacoCafe);
+        lpFrame.setVisible(true);
+        lpFrame.setLocationRelativeTo(null);
+        this.setVisible(false);
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
@@ -181,11 +216,10 @@ public class Menu extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Menu menu = new Menu();
+                Menu menu = new Menu(listaPessoas, listaSalasEvento, listaEspacoCafe);
                 menu.setLocationRelativeTo(null);
                 menu.setVisible(true);
             }
